@@ -28,4 +28,23 @@ class PostsServiceImpl(private val client: HttpClient) : PostsService {
     override suspend fun createPost(postRequest: PostRequest): PostResponse? {
         TODO("Not yet implemented")
     }
+
+    override suspend fun getPostsId(id: Int): PostResponse? {
+        return try {
+            client.get { url(HttpRoutes.POSTSid + "$id") }
+        } catch (e: RedirectResponseException) {
+            // 3xx - responses
+            println("Error: ${e.response.status.description}")
+            null
+        } catch (e: ClientRequestException) {
+            // 4xx - responses
+            println("Error: ${e.response.status.description}")
+            null
+        } catch (e: ServerResponseException) {
+            // 5xx - responses
+            println("Error: ${e.response.status.description}")
+            null
+        }
+
+    }
 }

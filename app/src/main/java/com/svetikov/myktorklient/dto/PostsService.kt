@@ -13,6 +13,8 @@ interface PostsService {
 
     suspend fun createPost(postRequest: PostRequest):PostResponse?
 
+    suspend fun getPostsId(id:Int):PostResponse?
+
     companion object{
         fun create():PostsService {
             return PostsServiceImpl(
